@@ -46,8 +46,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: dist
-          working-directory: custom
+          path: custom/dist
 
   deploy:
     needs: build
@@ -59,8 +58,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist-files
-          path: ./dist
-          working-directory: custom
+          path: custom/dist
       - name: Output contents
         run: ls
       - name: Deploy site
