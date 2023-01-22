@@ -2,7 +2,7 @@ name: Deployment
 on:
   push:
     branches:
-      - main
+      - master
 defaults: 
   run: 
     working-directory: "custom" #change into the container folder
