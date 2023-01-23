@@ -5,6 +5,10 @@ inputs:
      description: Whether to cache deps
      required: true
      default: 'true'
+outputs: 
+  used-cached: 
+     description: Whether cach was used-cached
+     value: ${{ steps.install.outputs.cache }}
 runs: 
   using: composite
   steps:
@@ -16,7 +20,10 @@ runs:
         path: custom/node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
+      id: install
       if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
-      run: npm ci
+      run: |
+        npm ci
+        echo "::set-output name=cache::'${{ inputs.caching }}"
       shell: bash
       working-directory: custom
