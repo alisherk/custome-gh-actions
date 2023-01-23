@@ -6,7 +6,7 @@ inputs:
      required: true
      default: 'true'
 outputs: 
-  used-cached: 
+  used-cache: 
      description: Whether cach was used-cached
      value: ${{ env.cache }}
 runs: 
