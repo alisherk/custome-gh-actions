@@ -13,9 +13,8 @@ runs:
       id: cache
       uses: actions/cache@v3
       with:
-        path: node_modules
+        path: custom/node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-        working-directory: custom
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
       run: npm ci
