@@ -1,9 +1,15 @@
 name: Get & cache deps
 description: Get the deps and cache them
+inputs:
+  caching: 
+     description: Whether to cache deps
+     required: true
+     default: 'true'
 runs: 
   using: composite
   steps:
     - name: Cache dependencies
+      if: inputs.caching == 'true'
       id: cache
       uses: actions/cache@v3
       with:
@@ -11,7 +17,7 @@ runs:
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
         working-directory: custom
     - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
       run: npm ci
       shell: bash
       working-directory: custom
